@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="provider"
+            type="com.microsoft.windowsazure.mobileservices.authentication.MobileServiceAuthenticationProvider" />
+
+        <variable
+            name="vm"
+            type="com.ams.cavus.todo.login.viewmodel.LoginViewModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue_grey_700"
+        android:orientation="vertical"
+        android:weightSum="4"
+        tools:context=".login.login.LoginActivity">
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/google_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/g_top_margin"
+                android:contentDescription="@string/desc_google_icon"
+                android:src="@drawable/googleg_color" />
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="@string/title_text"
+                android:textColor="@android:color/white"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.model.statusText}"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@color/blue_grey_900"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                app:onClick="@{v -> vm.signIn(provider.Google)}"
+                app:visibleIf="@{vm.model.isSignInVisible}"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/usernameEt"
+                style="@android:style/Widget.Holo.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="21dp"
+                android:layout_marginBottom="3dp"
+                android:text="@={vm.model.username}"
+                android:hint="Enter username"
+                android:textColorHint="@color/blue_grey_500"
+                android:singleLine="true"
+                app:visibleIf="@{!vm.model.isSignInVisible}"
+                android:textColor="@android:color/white" />
+
+            <!--<include-->
+                <!--layout="@layout/dialog_add"-->
+                <!--android:id="@+id/content"-->
+                <!--android:vm="@{vm}" />-->
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/usernameEt"
+                android:layout_marginLeft="21dp"
+                android:layout_marginRight="21dp"
+                android:elevation="0dp"
+                android:text="Next"
+                android:onClick="@{v -> vm.onNext()}"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/colorPrimaryDark"
+                app:visibleIf="@{!vm.model.isSignInVisible}"
+                android:theme="@style/Base.Widget.AppCompat.ActionButton" />
+
+        </RelativeLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
