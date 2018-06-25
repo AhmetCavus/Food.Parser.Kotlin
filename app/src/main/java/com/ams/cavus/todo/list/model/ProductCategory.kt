@@ -3,7 +3,7 @@ package com.ams.cavus.todo.list.model
 /**
  * Represents an item in a User list
  */
-data class GenericItem(
+data class ProductCategory(
         @com.google.gson.annotations.SerializedName("id")
         var id: Int) {
 
@@ -16,10 +16,16 @@ data class GenericItem(
     @com.google.gson.annotations.SerializedName("productCategoryId")
     var productCategoryId = 0
 
+    @com.google.gson.annotations.SerializedName("subcategoryId")
+    var subcategoryId = 0
+
+    @com.google.gson.annotations.SerializedName("parentId")
+    var parentId = 0
+
     override fun toString() = "$id/$name"
 
     override fun equals(other: Any?): Boolean {
-        return other is GenericItem && other.id === id
+        return other is ProductCategory && other.id === id
     }
 
 }

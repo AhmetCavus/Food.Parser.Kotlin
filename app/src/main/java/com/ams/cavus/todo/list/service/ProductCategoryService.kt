@@ -3,25 +3,27 @@ package com.ams.cavus.todo.list.service
 import com.ams.cavus.todo.db.service.AzureEntityService
 import com.ams.cavus.todo.helper.Settings
 import com.ams.cavus.todo.list.model.GenericItem
+import com.ams.cavus.todo.list.model.ProductCategory
 import com.google.gson.Gson
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncTable
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType
 
-class GenericItemService(client: MobileServiceClient, gson: Gson, settings: Settings) : AzureEntityService<GenericItem>(client, gson, settings) {
+class ProductCategoryService(client: MobileServiceClient, gson: Gson, settings: Settings) : AzureEntityService<ProductCategory>(client, gson, settings) {
 
-    override fun onGetTableName() = "genericItem"
+    override fun onGetTableName() = "productCategory"
 
-    override fun onQueryId() = "genericItemQuery"
+    override fun onQueryId() = "productCategoryQuery"
 
     override fun onCreateDefinition(): Map<String, ColumnDataType> =
         mapOf(
             "id" to ColumnDataType.Integer,
             "name" to ColumnDataType.String,
-            "productItemId" to ColumnDataType.Integer,
+            "subcategoryId" to ColumnDataType.Integer,
+            "parentId" to ColumnDataType.Integer,
             "productCategoryId" to ColumnDataType.Integer
         )
 
-    override fun onCreateTable(): MobileServiceSyncTable<GenericItem> = client.getSyncTable(GenericItem::class.java)
+    override fun onCreateTable(): MobileServiceSyncTable<ProductCategory> = client.getSyncTable(ProductCategory::class.java)
 
 }

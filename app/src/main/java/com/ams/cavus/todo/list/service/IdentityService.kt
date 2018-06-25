@@ -17,8 +17,6 @@ class IdentityService(client: MobileServiceClient, gson: Gson, settings: Setting
 
     override fun onQueryId() = "identityQuery"
 
-    override fun onGetLocalDbName() = "identityLocalDb"
-
     override fun onCreateDefinition(): Map<String, ColumnDataType> =
         mapOf(
             "id" to ColumnDataType.String,

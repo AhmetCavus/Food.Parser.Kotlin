@@ -15,8 +15,6 @@ class StoreService(client: MobileServiceClient, gson: Gson, settings: Settings) 
 
     override fun onQueryId() = "storeQuery"
 
-    override fun onGetLocalDbName() = "storeLocalDb"
-
     override fun onCreateDefinition(): Map<String, ColumnDataType> =
         mapOf(
             "storeId" to ColumnDataType.String,

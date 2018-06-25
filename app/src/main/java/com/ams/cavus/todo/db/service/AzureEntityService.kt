@@ -51,7 +51,7 @@ abstract class AzureEntityService<TEntity>(protected val client: MobileServiceCl
         }
 
         //setup our local sqlite store and intialize our table
-        var store = SQLiteLocalStore(client.context, onGetLocalDbName(), null, 1)
+        var store = SQLiteLocalStore(client.context, "dbLocal.db", null, 1)
 
         val definition = onCreateDefinition()
 
@@ -68,7 +68,6 @@ abstract class AzureEntityService<TEntity>(protected val client: MobileServiceCl
 
     abstract fun onCreateTable(): MobileServiceSyncTable<TEntity>
     abstract fun onCreateDefinition(): Map<String, ColumnDataType>
-    abstract fun onGetLocalDbName(): String
     abstract fun onGetTableName(): String
     abstract fun onQueryId(): String
 }
