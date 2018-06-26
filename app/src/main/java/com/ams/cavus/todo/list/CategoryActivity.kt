@@ -4,12 +4,14 @@ import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import com.ams.cavus.todo.R
 import com.ams.cavus.todo.base.MvvmActivity
 import com.ams.cavus.todo.databinding.ActivityCategoryBinding
 import com.ams.cavus.todo.list.viewmodel.CategoryViewModel
 import com.ams.cavus.todo.login.LoginActivity
 import com.ams.cavus.todo.util.app
+import kotlinx.android.synthetic.main.activity_category.*
 import javax.inject.Inject
 
 /**
@@ -30,7 +32,9 @@ class CategoryActivity : MvvmActivity() {
         viewDataBinding = DataBindingUtil.setContentView(
                 this, R.layout.activity_category)
 
+        app.component.inject(this)
         app.component.inject(viewModel)
+        client.context = this
 
         viewDataBinding.vm = viewModel.apply {
             lifecycleRegistry.addObserver(this)
@@ -40,6 +44,9 @@ class CategoryActivity : MvvmActivity() {
         viewDataBinding.recyclerView.apply {
             layoutManager = linearLayoutManager
         }
+
+        var divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        recyclerView.addItemDecoration(divider)
     }
 
     private fun onBackToLogin(e: Unit?) {

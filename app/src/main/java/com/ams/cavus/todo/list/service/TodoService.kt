@@ -18,8 +18,6 @@ class TodoService(client: MobileServiceClient, gson: Gson, settings: Settings) :
 
     override fun onQueryId() = "todoQuery"
 
-    override fun onGetLocalDbName() = "todoLocalDb"
-
     override fun onCreateDefinition(): Map<String, ColumnDataType> =
         mapOf(
             "id" to ColumnDataType.String,

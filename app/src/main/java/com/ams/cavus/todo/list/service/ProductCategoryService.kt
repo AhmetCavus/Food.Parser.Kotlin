@@ -17,7 +17,7 @@ class ProductCategoryService(client: MobileServiceClient, gson: Gson, settings: 
 
     override fun onCreateDefinition(): Map<String, ColumnDataType> =
         mapOf(
-            "id" to ColumnDataType.Integer,
+            "id" to ColumnDataType.String,
             "name" to ColumnDataType.String,
             "subcategoryId" to ColumnDataType.Integer,
             "parentId" to ColumnDataType.Integer,

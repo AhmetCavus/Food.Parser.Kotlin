@@ -5,9 +5,8 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
-import android.content.Intent
 import com.ams.cavus.todo.helper.QueryBuilder
-import com.ams.cavus.todo.list.TodoListAdapter
+import com.ams.cavus.todo.list.adapter.TodoListAdapter
 import com.ams.cavus.todo.list.model.Todo
 import com.ams.cavus.todo.list.service.TodoService
 import com.ams.cavus.todo.login.service.AzureAuthService
@@ -28,14 +27,14 @@ class TodoViewModel (app: Application) : AndroidViewModel(app), LifecycleObserve
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        todoService.fetch(QueryBuilder.buildFetch(authService.currentCredentials.userId)) { todoItems ->
-            adapter.todoItems = todoItems
+        todoService.fetch(QueryBuilder.buildFetch(authService.currentCredentials.userId)) { items ->
+            adapter.items = items
             adapter.notifyDataSetChanged()
         }
     }
 
     fun onAddItem() {
-        adapter.todoItems.add(Todo(authService.currentCredentials.userId, "Todo"))
+        adapter.items.add(Todo(authService.currentCredentials.userId, "Todo"))
         adapter.notifyDataSetChanged()
     }
 

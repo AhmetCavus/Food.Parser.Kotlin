@@ -5,35 +5,56 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
-import com.ams.cavus.todo.list.GenericItemsAdapter
+import android.util.Log
+import com.ams.cavus.todo.base.MvvmAdapter
+import com.ams.cavus.todo.list.adapter.CategoryItemsAdapter
+import com.ams.cavus.todo.list.adapter.GenericItemsAdapter
 import com.ams.cavus.todo.list.service.GenericItemService
-import com.ams.cavus.todo.login.service.AzureAuthService
+import com.ams.cavus.todo.list.service.ProductCategoryService
 import com.example.amstodo.util.SingleLiveEvent
 import javax.inject.Inject
 
 class CategoryViewModel (app: Application) : AndroidViewModel(app), LifecycleObserver{
 
-    val adapter = GenericItemsAdapter()
+    @Inject
+    lateinit var adapter: CategoryItemsAdapter
 
     @Inject
-    lateinit var authService: AzureAuthService
+    lateinit var categoryService: ProductCategoryService
 
     @Inject
-    lateinit var genericItemsService: GenericItemService
+    lateinit var productService: GenericItemService
 
     val backToLoginEvent = SingleLiveEvent<Unit>()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        genericItemsService.fetch(null) { genericItems ->
-            adapter.genericItems = genericItems
+        categoryService.fetch(null) { items ->
+            adapter.items = items
+                            .filter { item -> item.parentId == 0 }
+                            .sortedBy { item -> item.name }
+                            .toMutableList()
             adapter.notifyDataSetChanged()
+            productService.fetch(null) {}
         }
     }
 
-    fun onSignOut() {
-        authService.reset()
-        backToLoginEvent.call()
+    fun onItemClick(categoryViewModel: CategoryItemViewModel) {
+        Log.i("mvvm", categoryViewModel.name)
+        val filteredCategories =
+                categoryService.itemsCache
+                        .filter { category -> category.parentId == categoryViewModel.item.productCategoryId }
+                        .toMutableList()
+        if(filteredCategories.count() <= 0) {
+            var filteredProducts =
+            productService.itemsCache
+                    .filter { product -> product.productCategoryId == categoryViewModel.item.productCategoryId }
+                    .toMutableList()
+            Log.i("mvvm", "Show products: items count" + filteredProducts?.count())
+        } else {
+            adapter.items = filteredCategories;
+        }
+        adapter.notifyDataSetChanged()
     }
 
 }

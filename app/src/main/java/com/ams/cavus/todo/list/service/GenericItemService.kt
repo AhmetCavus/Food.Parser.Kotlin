@@ -16,7 +16,7 @@ class GenericItemService(client: MobileServiceClient, gson: Gson, settings: Sett
 
     override fun onCreateDefinition(): Map<String, ColumnDataType> =
         mapOf(
-            "id" to ColumnDataType.Integer,
+            "id" to ColumnDataType.String,
             "name" to ColumnDataType.String,
             "productItemId" to ColumnDataType.Integer,
             "productCategoryId" to ColumnDataType.Integer

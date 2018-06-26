@@ -55,7 +55,6 @@ abstract class AzureEntityService<TEntity>(protected val client: MobileServiceCl
 
         val definition = onCreateDefinition()
 
-
         //Define table
         store.defineTable(onGetTableName(), definition)
 

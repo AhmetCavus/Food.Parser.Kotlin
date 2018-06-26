@@ -21,13 +21,7 @@ abstract class MvvmActivity : AppCompatActivity(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        app.component.inject(this)
-
-        client.context = this
-
         lifecycleRegistry.markState(Lifecycle.State.CREATED)
-
         linearLayoutManager = LinearLayoutManager(this)
     }
 

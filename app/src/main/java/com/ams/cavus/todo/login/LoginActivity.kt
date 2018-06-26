@@ -1,6 +1,5 @@
 package com.ams.cavus.todo.login
 
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -8,6 +7,7 @@ import android.os.Bundle
 import com.ams.cavus.todo.R
 import com.ams.cavus.todo.base.MvvmActivity
 import com.ams.cavus.todo.databinding.ActivityLoginBinding
+import com.ams.cavus.todo.list.CategoryActivity
 import com.ams.cavus.todo.list.GenericItemsActivity
 import com.ams.cavus.todo.list.TodoActivity
 import com.ams.cavus.todo.login.viewmodel.LoginViewModel
@@ -30,7 +30,9 @@ class LoginActivity : MvvmActivity() {
         viewDataBinding = DataBindingUtil.setContentView(
                 this, R.layout.activity_login)
 
+        app.component.inject(this)
         app.component.inject(viewModel)
+        client.context = this
 
         viewDataBinding.vm = viewModel.apply {
             startActivityForResultEvent.observe(this@LoginActivity, Observer(::onStartActivityForResult))
@@ -55,6 +57,7 @@ class LoginActivity : MvvmActivity() {
     }
 
     private fun onStartActivity(next: String?) = when(next) {
+        "category" -> startActivity(Intent(this, CategoryActivity::class.java))
         "genericItems" -> startActivity(Intent(this, GenericItemsActivity::class.java))
         "todoList" -> startActivity(Intent(this, TodoActivity::class.java))
         else -> {

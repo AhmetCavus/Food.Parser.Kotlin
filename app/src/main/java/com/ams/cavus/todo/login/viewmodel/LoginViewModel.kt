@@ -118,7 +118,7 @@ class LoginViewModel (private val app: Application) : AndroidViewModel(app), Lif
     }
 
     private fun showNext() {
-        showNextEvent.value = "genericItems"
+        showNextEvent.value = "category"
     }
 
     private fun showEditUsername() {

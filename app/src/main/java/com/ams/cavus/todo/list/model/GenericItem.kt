@@ -5,7 +5,7 @@ package com.ams.cavus.todo.list.model
  */
 data class GenericItem(
         @com.google.gson.annotations.SerializedName("id")
-        var id: Int) {
+        var id: String) {
 
     @com.google.gson.annotations.SerializedName("name")
     var name = ""
