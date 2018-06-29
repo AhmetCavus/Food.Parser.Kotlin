@@ -66,15 +66,15 @@ abstract class AzureEntityService<TEntity>(protected val client: MobileServiceCl
         table = onCreateTable()
     }
 
-    fun test() {
-        //Initialize & Sync
-        sync {
-            doAsync {
-                val items = client.invokeApi("test", mapOf("table" to "genericItems"), )
-                val tmp = items.get()
-            }
-        }
-    }
+//    fun test() {
+//        //Initialize & Sync
+//        sync {
+//            doAsync {
+//                val items = client.invokeApi("test", mapOf("table" to "genericItems"), )
+//                val tmp = items.get()
+//            }
+//        }
+//    }
 
     abstract fun onCreateTable(): MobileServiceSyncTable<TEntity>
     abstract fun onCreateDefinition(): Map<String, ColumnDataType>

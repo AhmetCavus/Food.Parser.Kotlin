@@ -34,8 +34,8 @@ class CategoryViewModel (app: Application) : AndroidViewModel(app), LifecycleObs
     val backToLoginEvent = SingleLiveEvent<Unit>()
     val showProductsEvent = SingleLiveEvent<Unit>()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
         categoryService.fetch(null) { items ->
             adapter.items = items
                             .filter { item -> item.parentId == 0 }
