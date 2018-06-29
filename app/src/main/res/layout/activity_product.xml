@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="com.ams.cavus.todo.list.viewmodel.CategoryViewModel" />
+            type="com.ams.cavus.todo.list.viewmodel.ProductViewModel" />
 
     </data>
 
@@ -18,15 +18,16 @@
         android:layout_height="match_parent"
         android:background="@color/blue_grey_700"
         android:orientation="vertical"
-        tools:context=".list.CategoryActivity">
+        tools:context=".list.ProductActivity">
 
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="11dp"
             android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="Kategorien"
+            android:text="Produkte"
             android:textColor="@android:color/white"
             android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent" />
@@ -35,9 +36,9 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"
             android:adapter="@{vm.adapter}"
-            app:layout_constraintTop_toBottomOf="@+id/title_text"/>
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
     </android.support.constraint.ConstraintLayout>
 

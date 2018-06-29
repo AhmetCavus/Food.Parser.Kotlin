@@ -30,8 +30,8 @@ class GenericItemsActivity : MvvmActivity() {
         viewDataBinding = DataBindingUtil.setContentView(
                 this, R.layout.activity_generic_items)
 
-        app.component.inject(this)
-        app.component.inject(viewModel)
+//        app.component.inject(this)
+//        app.component.inject(viewModel)
         client.context = this
 
         viewDataBinding.vm = viewModel.apply {

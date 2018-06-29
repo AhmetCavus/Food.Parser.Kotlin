@@ -47,4 +47,12 @@ class CategoryItemViewModel(val item: ProductCategory) : BaseObservable(){
             notifyPropertyChanged(BR.name)
         }
 
+    var count: String = item.count.toString()
+        @Bindable get
+        set(value) {
+            field = value
+            item.count = value.toInt()
+            notifyPropertyChanged(BR.count)
+        }
+
 }

@@ -21,7 +21,8 @@ class ProductCategoryService(client: MobileServiceClient, gson: Gson, settings: 
             "name" to ColumnDataType.String,
             "subcategoryId" to ColumnDataType.Integer,
             "parentId" to ColumnDataType.Integer,
-            "productCategoryId" to ColumnDataType.Integer
+            "productCategoryId" to ColumnDataType.Integer,
+            "count" to ColumnDataType.Integer
         )
 
     override fun onCreateTable(): MobileServiceSyncTable<ProductCategory> = client.getSyncTable(ProductCategory::class.java)

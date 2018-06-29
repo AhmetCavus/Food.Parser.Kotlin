@@ -5,30 +5,30 @@ import android.databinding.Bindable
 import com.ams.cavus.todo.BR
 import com.ams.cavus.todo.list.model.GenericItem
 
-class GenericItemViewModel(private val genericItem: GenericItem) : BaseObservable(){
+class ProductItemViewModel(val item: GenericItem) : BaseObservable(){
 
-    var id: String = genericItem.id
+    var id: String = item.id
         @Bindable get
         set(value) {
             field = value
-            genericItem.id = value
+            item.id = value
             notifyPropertyChanged(BR.id)
         }
 
-    var name: String = genericItem.name
+    var productCategoryId: String = item.productCategoryId.toString()
         @Bindable get
         set(value) {
             field = value
-            genericItem.name = value
-            notifyPropertyChanged(BR.text)
+            item.productCategoryId = value.toInt()
+            notifyPropertyChanged(BR.productCategoryId)
         }
 
-    var productCategoryId: String = genericItem.productCategoryId.toString()
+    var name: String = item.name
         @Bindable get
         set(value) {
             field = value
-            genericItem.productCategoryId = value.toInt()
-            notifyPropertyChanged(BR.text)
+            item.name = value
+            notifyPropertyChanged(BR.name)
         }
 
 }

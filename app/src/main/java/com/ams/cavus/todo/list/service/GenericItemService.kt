@@ -10,6 +10,8 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDat
 
 class GenericItemService(client: MobileServiceClient, gson: Gson, settings: Settings) : AzureEntityService<GenericItem>(client, gson, settings) {
 
+    lateinit var filteredItems: MutableList<GenericItem>
+
     override fun onGetTableName() = "genericItem"
 
     override fun onQueryId() = "genericItemQuery"

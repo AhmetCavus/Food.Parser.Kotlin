@@ -1,6 +1,7 @@
 package com.ams.cavus.todo.db.service
 
 import com.ams.cavus.todo.helper.Settings
+import com.ams.cavus.todo.list.model.GenericItem
 import com.google.gson.Gson
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient
 import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceUser
@@ -36,9 +37,9 @@ abstract class AzureEntityService<TEntity>(protected val client: MobileServiceCl
         doAsync {
             initialize()
             //pull down all latest changes and then push current coffees up
-            table.pull(null, onQueryId()).get()
-            client.syncContext.push().get()
             uiThread { callback() }
+            table.pull(null, onQueryId()).get()
+//            client.syncContext.push().get()
         }
     }
 
@@ -63,6 +64,16 @@ abstract class AzureEntityService<TEntity>(protected val client: MobileServiceCl
 
         //Get our sync table that will call out to azure
         table = onCreateTable()
+    }
+
+    fun test() {
+        //Initialize & Sync
+        sync {
+            doAsync {
+                val items = client.invokeApi("test", mapOf("table" to "genericItems"), )
+                val tmp = items.get()
+            }
+        }
     }
 
     abstract fun onCreateTable(): MobileServiceSyncTable<TEntity>

@@ -45,6 +45,7 @@ class LoginViewModel (private val app: Application) : AndroidViewModel(app), Lif
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
+        identityService.fetch(null) {}
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -97,9 +98,13 @@ class LoginViewModel (private val app: Application) : AndroidViewModel(app), Lif
     fun handleResult(requestCode: Int, resultCode: Int, data: Intent) {
         val result = authService.onActivityResult(data)
         if(result.isLoggedIn) {
-            identityService.fetch(QueryBuilder.buildFetch(authService.currentCredentials.userId))
-            { userList ->
+            val account = identityService.itemsCache?.find { identity -> identity.userId == authService.currentCredentials.userId }
+            if(account == null) {
                 showEditUsername()
+            } else {
+                authService.currentCredentials.userName = account.userName
+                hideEditUsername()
+                showNext()
             }
         } else {
             updateUI(Exception(result.errorMessage))
