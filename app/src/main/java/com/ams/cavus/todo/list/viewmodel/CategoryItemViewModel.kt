@@ -47,6 +47,14 @@ class CategoryItemViewModel(val item: ProductCategory) : BaseObservable(){
             notifyPropertyChanged(BR.name)
         }
 
+    var categoryColor: String = item.categoryColor
+        @Bindable get
+        set(value) {
+            field = value
+            item.categoryColor = value
+            notifyPropertyChanged(BR.categoryColor)
+        }
+
     var count: String = item.count.toString()
         @Bindable get
         set(value) {

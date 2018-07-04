@@ -36,6 +36,7 @@ class CategoryViewModel (app: Application) : AndroidViewModel(app), LifecycleObs
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
+//        categoryService.test2()
         categoryService.fetch(null) { items ->
             adapter.items = items
                             .filter { item -> item.parentId == 0 }

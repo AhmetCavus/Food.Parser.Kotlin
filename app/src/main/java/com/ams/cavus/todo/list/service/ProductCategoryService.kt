@@ -22,6 +22,7 @@ class ProductCategoryService(client: MobileServiceClient, gson: Gson, settings: 
             "subcategoryId" to ColumnDataType.Integer,
             "parentId" to ColumnDataType.Integer,
             "productCategoryId" to ColumnDataType.Integer,
+            "categoryColor" to ColumnDataType.String,
             "count" to ColumnDataType.Integer
         )
 

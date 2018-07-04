@@ -45,12 +45,13 @@ class LoginViewModel (private val app: Application) : AndroidViewModel(app), Lif
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        identityService.fetch(null) {}
+        identityService.fetch(null) {identities ->
+            relogin()
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        relogin()
     }
 
     private fun relogin() {
@@ -102,7 +103,7 @@ class LoginViewModel (private val app: Application) : AndroidViewModel(app), Lif
             if(account == null) {
                 showEditUsername()
             } else {
-                authService.currentCredentials.userName = account.userName
+                authService.currentCredentials.userName = account.name
                 hideEditUsername()
                 showNext()
             }
@@ -141,7 +142,7 @@ class LoginViewModel (private val app: Application) : AndroidViewModel(app), Lif
     fun onNext() {
         if(identityService.checkUsernameIsValid(model.username, authService.currentCredentials.userId)) {
             identityService.add(authService.currentCredentials.userId, model.username) { identity ->
-                authService.currentCredentials.userName = identity.userName
+                authService.currentCredentials.userName = identity.name
                 hideEditUsername()
                 showNext()
             }

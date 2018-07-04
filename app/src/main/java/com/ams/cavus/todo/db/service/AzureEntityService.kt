@@ -1,5 +1,7 @@
 package com.ams.cavus.todo.db.service
 
+import android.util.Log
+import android.util.Pair
 import com.ams.cavus.todo.helper.Settings
 import com.ams.cavus.todo.list.model.GenericItem
 import com.google.gson.Gson
@@ -66,15 +68,46 @@ abstract class AzureEntityService<TEntity>(protected val client: MobileServiceCl
         table = onCreateTable()
     }
 
-//    fun test() {
-//        //Initialize & Sync
-//        sync {
-//            doAsync {
-//                val items = client.invokeApi("test", mapOf("table" to "genericItems"), )
-//                val tmp = items.get()
-//            }
-//        }
-//    }
+    fun test() {
+        //Initialize & Sync
+        doAsync {
+            val params = ArrayList<Pair<String, String>>().apply{
+                add(Pair("table", "genericItem"))
+            }
+            val items =
+            client.invokeApi(
+                    "test",
+                    "GET",
+                    params,
+                    Array<GenericItem>::class.java
+            )
+            try {
+                val tmp = items.get()
+                tmp.toString()
+            } catch(err: Exception) {
+                Log.e("geck", err.message)
+            }
+        }
+    }
+
+    fun test2() {
+        //Initialize & Sync
+        doAsync {
+            val item =
+                    client.invokeApi(
+                            "v1/genericItem/header",
+                            "GET",
+                            null,
+                            Any::class.java
+                    )
+            try {
+                val tmp = item.get()
+                tmp.toString()
+            } catch(err: Exception) {
+                Log.e("geck", err.message)
+            }
+        }
+    }
 
     abstract fun onCreateTable(): MobileServiceSyncTable<TEntity>
     abstract fun onCreateDefinition(): Map<String, ColumnDataType>

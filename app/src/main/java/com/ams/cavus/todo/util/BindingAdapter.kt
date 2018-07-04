@@ -5,6 +5,7 @@ import android.databinding.InverseBindingListener
 import android.view.View
 import android.widget.CheckBox
 import android.databinding.InverseBindingAdapter
+import android.graphics.Color
 
 @BindingAdapter("onClick")
 fun setOnClick(view: com.google.android.gms.common.SignInButton, clickListener: View.OnClickListener) {
@@ -14,6 +15,12 @@ fun setOnClick(view: com.google.android.gms.common.SignInButton, clickListener: 
 @BindingAdapter("visibleIf")
 fun setVisibility(view: View, visible: Boolean) {
     view.visibility = if(visible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("backgroundColor")
+fun setVisibility(view: View, color: String) {
+    var colorRes = Color.parseColor(color)
+    view.setBackgroundColor(colorRes)
 }
 
 @BindingAdapter("checkedAttrChanged")

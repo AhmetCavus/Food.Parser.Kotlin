@@ -12,6 +12,8 @@ data class ProductCategory(
 
     var productCategoryId = 0
 
+    var categoryColor = "#ffffff"
+
     var subcategoryId = 0
 
     var parentId = 0

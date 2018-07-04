@@ -8,6 +8,7 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.util.Log
 import com.ams.cavus.todo.list.adapter.ProductItemsAdapter
 import com.ams.cavus.todo.list.service.GenericItemService
+import com.ams.cavus.todo.login.service.AzureAuthService
 import javax.inject.Inject
 
 class ProductViewModel (app: Application) : AndroidViewModel(app), LifecycleObserver{
@@ -17,6 +18,9 @@ class ProductViewModel (app: Application) : AndroidViewModel(app), LifecycleObse
 
     @Inject
     lateinit var productService: GenericItemService
+
+    @Inject
+    lateinit var authService: AzureAuthService
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {

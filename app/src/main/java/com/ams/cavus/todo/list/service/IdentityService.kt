@@ -19,11 +19,8 @@ class IdentityService(client: MobileServiceClient, gson: Gson, settings: Setting
 
     override fun onCreateDefinition(): Map<String, ColumnDataType> =
         mapOf(
-            "id" to ColumnDataType.String,
             "userId" to ColumnDataType.String,
-            "userName" to ColumnDataType.String,
-            "deleted" to ColumnDataType.Boolean,
-            "createdAt" to ColumnDataType.DateTimeOffset
+            "name" to ColumnDataType.String
         )
 
     override fun onCreateTable(): MobileServiceSyncTable<Identity> = client.getSyncTable(Identity::class.java)
@@ -35,15 +32,18 @@ class IdentityService(client: MobileServiceClient, gson: Gson, settings: Setting
             var entity = Identity(userId, userName)
 
             val res = table.insert(entity).get()
+            client.syncContext.push().get()
             settings.saveUserName(userName)
-            sync { listener.invoke(res) }
+            sync {
+                listener.invoke(res)
+            }
         }
     }
 
-    fun checkUsernameIsValid(userName: String, userId: String): Boolean {
+    fun checkUsernameIsValid(name: String, userId: String): Boolean {
         var isValid = false
-        if(userName.isNotEmpty()) {
-            val usernameFound = itemsCache.find { id -> id.userName == userName }
+        if(name.isNotEmpty()) {
+            val usernameFound = itemsCache.find { id -> id.name == name }
             val useridFound = itemsCache.find { id -> id.userId == userId }
             isValid = usernameFound == null && useridFound == null
         }
